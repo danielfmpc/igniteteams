@@ -1,6 +1,10 @@
 import { Container } from "./styles";
-import { TextInputProps } from "react-native";
+import { TextInputProps, TextInput } from "react-native";
 
-export function Input({ ...rest }: TextInputProps) {
-  return <Container {...rest} />;
+interface InputProps extends TextInputProps {
+  inputRef?: React.RefObject<TextInput>;
+}
+
+export function Input({ inputRef, ...rest }: InputProps) {
+  return <Container {...rest} ref={inputRef} />;
 }
