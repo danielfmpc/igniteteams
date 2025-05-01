@@ -14,6 +14,8 @@ import { playerAddByGroup } from "@storage/player/playersAddByGroup";
 import { PlayerStorageDto } from "@storage/player/PlayerStorageDTO";
 import { AppError } from "@utils/AppErro";
 import { playersGetByGroupAndTeam } from "@storage/player/playersGetByGroupAndTeam";
+import { playerRemoveByGroup } from "@storage/player/playerRemoveByGroup";
+
 interface RouteParams {
   group: string;
 }
@@ -30,8 +32,15 @@ export function Players() {
 
   const newPlayerNameInputRef = useRef<TextInput>(null);
 
-  function playerRemove(name: string) {
-    setPlayers((prevState) => prevState.filter((player) => player.name !== name));
+  async function playerRemove(name: string) {
+    try {
+      await playerRemoveByGroup(name, group);
+
+      fetchPlayersByTeam();
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Remover participante", "Não foi possível remover o participante.");
+    }
   }
 
   async function handlePlayerAdd() {
