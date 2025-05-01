@@ -86,11 +86,11 @@ export function Players() {
 
       const players = await playersGetByGroupAndTeam(group, team);
       setPlayers(players);
-
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
       Alert.alert("Turma", "Não foi possível carregar os participantes.");
+    } finally {
+      setIsLoading(false);
     }
   }
 

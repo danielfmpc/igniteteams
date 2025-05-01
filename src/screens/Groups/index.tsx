@@ -2,7 +2,7 @@ import { Container } from "./styles";
 import { Header } from "@components/Header";
 import { Highlight } from "@components/Highlight";
 import { GroupCard } from "@components/GroupCard";
-import { FlatList } from "react-native";
+import { Alert, FlatList } from "react-native";
 import { useCallback, useEffect, useState } from "react";
 import { ListEmpty } from "@components/ListEmpty";
 import { Button } from "@components/Button";
@@ -25,10 +25,11 @@ export function Groups() {
       setIsLoading(true);
       const data = await groupGetAll();
       setGroups(data);
-
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      Alert.alert("Turmas", "Não foi possível carregar as turmas.");
+    } finally {
+      setIsLoading(false);
     }
   }
 
